@@ -1,0 +1,17 @@
+.form-message {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 5px;
+}
+
+.form-error {
+  background-color: var(--color-error);
+  color: var(--color-error-text);
+}
+
+.form-success {
+  background-color: var(--color-success);
+  color: var(--color-success-text);
+}
