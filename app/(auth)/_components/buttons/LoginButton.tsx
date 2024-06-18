@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 // Styles & Components
-import styles from './LoginButton.module.css';
+import styles from './Buttons.module.css';
 
 interface Props {
   children: React.ReactNode;

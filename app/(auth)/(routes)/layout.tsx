@@ -1,10 +1,10 @@
-import { Container } from '../_components';
+import { AuthLayout } from '../_components';
 
 interface Props {
   children: React.ReactNode;
 }
 
-function AuthLayout({ children }: Props) {
-  return <Container>{children}</Container>;
+function AuthLayoutPages({ children }: Props) {
+  return <AuthLayout>{children}</AuthLayout>;
 }
-export default AuthLayout;
+export default AuthLayoutPages;
