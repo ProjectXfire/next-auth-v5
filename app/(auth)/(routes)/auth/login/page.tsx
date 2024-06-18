@@ -1,4 +1,11 @@
+// Styles & Components
+import { LoginForm } from '@/app/(auth)/_components';
+
 function LoginPage(): JSX.Element {
-  return <div>LoginPage</div>;
+  return (
+    <>
+      <LoginForm />
+    </>
+  );
 }
 export default LoginPage;

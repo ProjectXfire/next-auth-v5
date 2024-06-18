@@ -1,3 +1,7 @@
 .login-button {
   cursor: pointer;
 }
+
+.back-button {
+  width: 100%;
+}
