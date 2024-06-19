@@ -39,8 +39,8 @@ function LoginForm(): JSX.Element {
     setResponse(initResponse);
     setIsPending(true);
     const { error, success } = await login(data);
-    if (error) setResponse({ ...response, error });
-    if (success) setResponse({ ...response, success });
+    if (error) setResponse((cv) => ({ ...cv, error }));
+    if (success) setResponse((cv) => ({ ...cv, success }));
     setIsPending(false);
   };
 
@@ -73,7 +73,12 @@ function LoginForm(): JSX.Element {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder='*******' {...field} type='password' disabled={isPending} />
+                  <Input
+                    placeholder='***********'
+                    {...field}
+                    type='password'
+                    disabled={isPending}
+                  />
                 </FormControl>
                 <FormMessage className={styles['form__message']} />
               </FormItem>
