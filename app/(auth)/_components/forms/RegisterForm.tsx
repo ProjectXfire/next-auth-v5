@@ -39,8 +39,8 @@ function RegisterForm(): JSX.Element {
     setResponse(initResponse);
     setIsPending(true);
     const { error, success } = await register(data);
-    if (error) setResponse({ ...response, error });
-    if (success) setResponse({ ...response, success });
+    if (error) setResponse((cv) => ({ ...cv, error }));
+    if (success) setResponse((cv) => ({ ...cv, success }));
     setIsPending(false);
   };
 
