@@ -1,4 +1,11 @@
+// Styles & Components
+import { RegisterForm } from '@/app/(auth)/_components';
+
 function RegisterPage(): JSX.Element {
-  return <div>RegisterPage</div>;
+  return (
+    <>
+      <RegisterForm />
+    </>
+  );
 }
 export default RegisterPage;

@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginSchema } from '../../_schemas';
+import { RegisterSchema } from '../../_schemas';
 // Services
-import { login } from '@/core/services/auth';
+import { register } from '@/core/services/auth';
 // Dtos
-import type { LoginDto } from '@/core/dtos/auth';
+import type { RegisterDto } from '@/core/dtos/auth';
 // Styles & Components
 import styles from './Forms.module.css';
 import { CardWrapper } from '..';
@@ -24,21 +24,21 @@ import {
   Input,
 } from '@/shared/components';
 
-const initResponse = { error: '', success: '' };
+const initResponse = { error: '', success: '', name: '' };
 
-function LoginForm(): JSX.Element {
+function RegisterForm(): JSX.Element {
   const [isPending, setIsPending] = useState(false);
   const [response, setResponse] = useState(initResponse);
 
-  const form = useForm<LoginDto>({
-    resolver: zodResolver(LoginSchema),
-    defaultValues: { email: '', password: '' },
+  const form = useForm<RegisterDto>({
+    resolver: zodResolver(RegisterSchema),
+    defaultValues: { name: '', email: '', password: '' },
   });
 
-  const onSubmit = async (data: LoginDto): Promise<void> => {
+  const onSubmit = async (data: RegisterDto): Promise<void> => {
     setResponse(initResponse);
     setIsPending(true);
-    const { error, success } = await login(data);
+    const { error, success } = await register(data);
     if (error) setResponse({ ...response, error });
     if (success) setResponse({ ...response, success });
     setIsPending(false);
@@ -47,12 +47,25 @@ function LoginForm(): JSX.Element {
   return (
     <CardWrapper
       headerLabel='Welcome back'
-      backButtonLabel="Don't have an account?"
-      backButtonHref='/auth/register'
+      backButtonLabel='If you have an account click here'
+      backButtonHref='/auth/login'
       showSocial
     >
       <Form {...form}>
         <form className={styles['form']} onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name='name'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder='John Doe' {...field} disabled={isPending} />
+                </FormControl>
+                <FormMessage className={styles['form__message']} />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name='email'
@@ -81,12 +94,12 @@ function LoginForm(): JSX.Element {
           />
           <FormError message={response.error} />
           <FormSuccess message={response.success} />
-          <Button name='login' type='submit'>
-            Login
+          <Button name='register' type='submit'>
+            Create an account
           </Button>
         </form>
       </Form>
     </CardWrapper>
   );
 }
-export default LoginForm;
+export default RegisterForm;
