@@ -1,10 +1,10 @@
-.login-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.login-form__message {
+.form__message {
   padding-left: 13px;
   font-size: 0.8rem;
 }
