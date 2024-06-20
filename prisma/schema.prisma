@@ -20,6 +20,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
+  hasPassword   Boolean
   accounts      Account[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
