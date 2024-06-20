@@ -1,5 +1,6 @@
 import type { LoginDto } from '@/core/dtos/auth';
 import type { IResponse } from '@/shared/interfaces';
+import { signIn } from 'next-auth/react';
 import { LoginSchema } from '@/app/(auth)/_schemas';
 
 export async function login(payload: LoginDto): Promise<IResponse<null>> {
@@ -12,6 +13,10 @@ export async function login(payload: LoginDto): Promise<IResponse<null>> {
       throw new Error(data.error);
     }
     const data = await res.json();
+    await signIn('credentials', {
+      ...data.data,
+      redirect: true,
+    });
     return {
       error: null,
       data: null,

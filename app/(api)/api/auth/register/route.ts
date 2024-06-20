@@ -28,7 +28,9 @@ export async function POST(
         { error: 'Internal error server', success: null, data: null },
         { status: 400 }
       );
-    const userDb = await db.user.create({ data: { name, email, password: hashedPassword } });
+    const userDb = await db.user.create({
+      data: { name, email, password: hashedPassword, hasPassword: true },
+    });
     // Todo: Send verification token email
     const user = UserEntity.fromObject(userDb);
     return NextResponse.json(
