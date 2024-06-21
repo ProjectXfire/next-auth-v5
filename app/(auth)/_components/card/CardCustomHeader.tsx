@@ -4,7 +4,7 @@ interface Props {
   label: string;
 }
 
-function CardHeader({ label }: Props): JSX.Element {
+function CardCustomHeader({ label }: Props): JSX.Element {
   return (
     <div className={styles['card-header']}>
       <h1>🔏 Auth</h1>
@@ -12,4 +12,4 @@ function CardHeader({ label }: Props): JSX.Element {
     </div>
   );
 }
-export default CardHeader;
+export default CardCustomHeader;

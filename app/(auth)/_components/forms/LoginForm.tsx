@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema } from '../../_schemas';
+import { errorsQuery } from '@/shared/constants';
 // Services
 import { login } from '@/core/services/auth';
 // Dtos
@@ -28,7 +30,11 @@ const initResponse = { error: '', success: '' };
 
 function LoginForm(): JSX.Element {
   const [isPending, setIsPending] = useState(false);
-  const [response, setResponse] = useState(initResponse);
+  const params = useSearchParams();
+  const [response, setResponse] = useState<{ error: string; success: string }>({
+    ...initResponse,
+    error: errorsQuery[params.get('error') ?? ''] ?? '',
+  });
 
   const form = useForm<LoginDto>({
     resolver: zodResolver(LoginSchema),

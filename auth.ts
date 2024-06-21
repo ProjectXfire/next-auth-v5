@@ -3,7 +3,7 @@ import type { DefaultSession } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import authConfig from './auth.config';
 import { db } from './core/lib';
-import { UserEntity } from './core/entities/user';
+import { getUserByIdServer, updateEmailVerified } from './core/services/user';
 
 declare module 'next-auth' {
   interface Session {
@@ -15,11 +15,21 @@ declare module 'next-auth' {
 }
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
+  pages: {
+    signIn: '/auth/login',
+    error: '/auth/error',
+  },
+  events: {
+    async linkAccount({ user }) {
+      await updateEmailVerified(user.id);
+    },
+  },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token }) {
+      if (!token.sub) return token;
+      const user = await getUserByIdServer(token.sub);
       if (!user) return token;
-      const userEntity = UserEntity.fromObject(user);
-      token.user = userEntity;
+      token.user = user;
       return token;
     },
     async session({ token, session }) {
