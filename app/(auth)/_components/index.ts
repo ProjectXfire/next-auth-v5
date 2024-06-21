@@ -3,6 +3,7 @@ export { default as BackButton } from './buttons/BackButton';
 export { default as LoginButton } from './buttons/LoginButton';
 export { default as CardCustomHeader } from './card/CardCustomHeader';
 export { default as CardWrapper } from './card/CardWrapper';
+export { default as ErrorCard } from './card/ErrorCard';
 export { default as LoginForm } from './forms/LoginForm';
 export { default as RegisterForm } from './forms/RegisterForm';
 export { default as Header } from './header/Header';

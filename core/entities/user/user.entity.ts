@@ -2,7 +2,7 @@ interface User {
   id: string;
   name?: string;
   email: string;
-  emailVerified?: string;
+  emailVerified?: string | null;
   image?: string;
   role: string;
 }
@@ -11,7 +11,7 @@ export class UserEntity {
   public id: string;
   public name?: string;
   public email: string;
-  public emailVerified?: string;
+  public emailVerified?: string | null;
   public image?: string;
   public role: string;
 
