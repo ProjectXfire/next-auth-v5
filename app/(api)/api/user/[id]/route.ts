@@ -5,7 +5,7 @@ import type { IResponse } from '@/shared/interfaces';
 import type { NextRequest } from 'next/server';
 
 interface IParams {
-  params: { email: string };
+  params: { id: string };
 }
 
 export async function GET(
@@ -13,13 +13,10 @@ export async function GET(
   { params }: IParams
 ): Promise<NextResponse<IResponse<null | UserEntity>>> {
   try {
-    const { email } = params;
-    if (!email)
-      return NextResponse.json(
-        { error: 'Missing email', success: null, data: null },
-        { status: 400 }
-      );
-    const userDb = await db.user.findUnique({ where: { email } });
+    const { id } = params;
+    if (!id)
+      return NextResponse.json({ error: 'Missing Id', success: null, data: null }, { status: 400 });
+    const userDb = await db.user.findUnique({ where: { id } });
     if (!userDb)
       return NextResponse.json(
         { error: 'User not found', success: null, data: null },

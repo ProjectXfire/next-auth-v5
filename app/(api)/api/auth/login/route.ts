@@ -28,6 +28,11 @@ export async function POST(
         { error: 'Invalid credentials', success: null, data: null },
         { status: 400 }
       );
+    /*if (!userDb.emailVerified)
+      return NextResponse.json(
+        { error: 'Something went wrong', success: null, data: null },
+        { status: 400 }
+      );*/
     const user = UserEntity.fromObject(userDb);
     return NextResponse.json({ data: user, success: 'User valid', error: null }, { status: 200 });
   } catch (error) {
