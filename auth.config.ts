@@ -5,7 +5,8 @@ export default {
   providers: [
     Credentials({
       async authorize(credentials) {
-        return credentials;
+        const user = { ...credentials };
+        return user;
       },
     }),
   ],

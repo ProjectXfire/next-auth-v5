@@ -1,9 +1,9 @@
 import { UserEntity } from '@/core/entities/user';
 import type { IResponse } from '@/shared/interfaces';
 
-export async function getUserByEmail(email: string): Promise<IResponse<UserEntity | null>> {
+export async function getUserById(id: string): Promise<IResponse<UserEntity | null>> {
   try {
-    const res = await fetch(`/api/user/${email}`, { method: 'GET' });
+    const res = await fetch(`/api/user/${id}`, { method: 'GET' });
     if (!res.ok) {
       const data = await res.json();
       throw new Error(data.error);

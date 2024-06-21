@@ -29,7 +29,7 @@ export async function POST(
         { status: 400 }
       );
     const userDb = await db.user.create({
-      data: { name, email, password: hashedPassword, hasPassword: true },
+      data: { name, email, password: hashedPassword },
     });
     // Todo: Send verification token email
     const user = UserEntity.fromObject(userDb);

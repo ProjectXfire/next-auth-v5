@@ -6,7 +6,7 @@ async function SettingsPage(): Promise<JSX.Element> {
 
   return (
     <div>
-      {JSON.stringify(session)} <CloseSession />
+      {JSON.stringify(session, null, 2)} <CloseSession />
     </div>
   );
 }
