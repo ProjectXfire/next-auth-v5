@@ -1,9 +1,10 @@
-import { hashPassword } from '@/core/adapters';
-import { UserEntity } from '@/core/entities/user';
-import { db } from '@/core/lib';
 import { NextResponse } from 'next/server';
 import type { IResponse } from '@/shared/interfaces';
 import type { NextRequest } from 'next/server';
+import { UserEntity } from '@/core/entities/user';
+import { db } from '@/core/lib';
+import { hashPassword, sendVerificationEmail } from '@/core/adapters';
+import { createVerificationToken } from '@/core/services/verification-token';
 
 export async function POST(
   req: NextRequest,
@@ -26,21 +27,35 @@ export async function POST(
     if (!hashedPassword)
       return NextResponse.json(
         { error: 'Internal error server', success: null, data: null },
-        { status: 400 }
+        { status: 500 }
       );
     const userDb = await db.user.create({
       data: { name, email, password: hashedPassword },
     });
-    // Todo: Send verification token email
+    const verificationToken = await createVerificationToken(userDb.email);
+    if (!verificationToken)
+      return NextResponse.json(
+        { error: 'Internal error server', success: null, data: null },
+        { status: 500 }
+      );
+    const resendEmail = await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token
+    );
+    if (!resendEmail)
+      return NextResponse.json(
+        { error: 'Error on send email, please try again on login', success: null, data: null },
+        { status: 400 }
+      );
     const user = UserEntity.fromObject(userDb);
     return NextResponse.json(
-      { data: user, success: 'Account created', error: null },
+      { data: user, success: 'Confirmation email sent!', error: null },
       { status: 201 }
     );
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal server error', success: null, data: null },
-      { status: 400 }
+      { status: 500 }
     );
   }
 }

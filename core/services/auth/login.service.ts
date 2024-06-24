@@ -10,6 +10,12 @@ export async function login(payload: LoginDto): Promise<IResponse<null>> {
     const res = await fetch('/api/auth/login', { method: 'POST', body: JSON.stringify(payload) });
     if (!res.ok) {
       const data = await res.json();
+      if (res.status === 403)
+        return {
+          error: null,
+          data: null,
+          success: data.error,
+        };
       throw new Error(data.error);
     }
     const data = await res.json();
