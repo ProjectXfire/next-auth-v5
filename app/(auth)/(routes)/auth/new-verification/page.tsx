@@ -1,4 +1,7 @@
+// Styles & Components
+import { NewVerificationForm } from '@/app/(auth)/_components';
+
 function NewVerificationPage() {
-  return <div>NewVerificationPage</div>;
+  return <NewVerificationForm />;
 }
 export default NewVerificationPage;

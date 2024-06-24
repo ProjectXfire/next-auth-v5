@@ -4,7 +4,9 @@ import type { NextRequest } from 'next/server';
 import { UserEntity } from '@/core/entities/user';
 import { db } from '@/core/lib';
 import { hashPassword, sendVerificationEmail } from '@/core/adapters';
-import { createVerificationToken } from '@/core/services/verification-token';
+import { createVerificationToken } from '@/core/services/verification-token/server';
+
+//a9db9a27-a72b-474e-a87e-42c11ea2491c
 
 export async function POST(
   req: NextRequest,

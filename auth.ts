@@ -3,7 +3,7 @@ import type { DefaultSession } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import authConfig from './auth.config';
 import { db } from './core/lib';
-import { getUserByIdServer, updateEmailVerified } from './core/services/user';
+import { getUserByIdServer, updateEmailVerified } from './core/services/user/server';
 
 declare module 'next-auth' {
   interface Session {

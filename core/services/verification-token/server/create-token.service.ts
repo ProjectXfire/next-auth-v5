@@ -1,7 +1,7 @@
 import { generateToken } from '@/core/adapters';
 import { db } from '@/core/lib';
-import { getVerificationTokenByEmail } from './get-verification-token-server.service';
-import { deleteVerificationToken } from './delete-token-server.service';
+import { getVerificationTokenByEmail } from './get-verification-token.service';
+import { deleteVerificationToken } from './delete-token.service';
 
 export async function createVerificationToken(email: string) {
   try {

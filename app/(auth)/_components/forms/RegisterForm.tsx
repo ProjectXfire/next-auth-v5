@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema } from '../../_schemas';
 // Services
-import { register } from '@/core/services/auth';
+import { register } from '@/core/services/auth/client';
 // Dtos
 import type { RegisterDto } from '@/core/dtos/auth';
 // Styles & Components

@@ -1,4 +1,4 @@
-import { getCurrentSession } from '@/core/services/auth';
+import { getCurrentSession } from '@/core/services/auth/server';
 import { CloseSession } from '../../_components';
 
 async function SettingsPage(): Promise<JSX.Element> {

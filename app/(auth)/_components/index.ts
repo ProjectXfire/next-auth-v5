@@ -5,6 +5,7 @@ export { default as CardCustomHeader } from './card/CardCustomHeader';
 export { default as CardWrapper } from './card/CardWrapper';
 export { default as ErrorCard } from './card/ErrorCard';
 export { default as LoginForm } from './forms/LoginForm';
+export { default as NewVerificationForm } from './forms/NewVerificationForm';
 export { default as RegisterForm } from './forms/RegisterForm';
 export { default as Header } from './header/Header';
 export { default as AuthLayout } from './layout/AuthLayout';

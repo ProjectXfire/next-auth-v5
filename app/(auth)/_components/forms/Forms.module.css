@@ -8,3 +8,8 @@
   padding-left: 13px;
   font-size: 0.8rem;
 }
+
+.form-verification {
+  display: flex;
+  justify-content: center;
+}

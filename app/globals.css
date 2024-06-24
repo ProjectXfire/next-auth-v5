@@ -9,6 +9,7 @@ body,
   --color-error: #ffd2d2;
   --color-error-text: #da1f1f;
   --color-success: #cdf1e4;
+  --color-primary: #212f6e;
   --color-success-text: #119142;
   height: 100%;
 }

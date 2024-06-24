@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema } from '../../_schemas';
 import { errorsQuery } from '@/shared/constants';
 // Services
-import { login } from '@/core/services/auth';
+import { login } from '@/core/services/auth/client';
 // Dtos
 import type { LoginDto } from '@/core/dtos/auth';
 // Styles & Components

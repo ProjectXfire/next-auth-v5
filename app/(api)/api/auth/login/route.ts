@@ -1,10 +1,10 @@
-import { checkPassword, sendVerificationEmail } from '@/core/adapters';
-import { UserEntity } from '@/core/entities/user';
-import { db } from '@/core/lib';
 import { NextResponse } from 'next/server';
 import type { IResponse } from '@/shared/interfaces';
 import type { NextRequest } from 'next/server';
-import { createVerificationToken } from '@/core/services/verification-token';
+import { UserEntity } from '@/core/entities/user';
+import { db } from '@/core/lib';
+import { checkPassword, sendVerificationEmail } from '@/core/adapters';
+import { createVerificationToken } from '@/core/services/verification-token/server';
 
 export async function POST(
   req: NextRequest,
