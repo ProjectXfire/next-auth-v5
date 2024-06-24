@@ -1,4 +1,4 @@
-import { UserEntity } from '@/core/entities/user';
+import type { UserEntity } from '@/core/entities/user';
 import type { IResponse } from '@/shared/interfaces';
 
 export async function getUserById(id: string): Promise<IResponse<UserEntity | null>> {
@@ -9,9 +9,8 @@ export async function getUserById(id: string): Promise<IResponse<UserEntity | nu
       throw new Error(data.error);
     }
     const data = await res.json();
-    const user = UserEntity.fromObject(data.data);
     return {
-      data: user,
+      data: data.data,
       error: null,
       success: data.success,
     };
