@@ -4,7 +4,8 @@ import type { NextRequest } from 'next/server';
 import { UserEntity } from '@/core/entities/user';
 import { db } from '@/core/lib';
 import { hashPassword, sendVerificationEmail } from '@/core/adapters';
-import { createVerificationToken } from '@/core/services/verification-token/server';
+import { createVerificationToken } from '@/core/services/auth/server';
+import { RegisterSchema } from '@/app/(auth)/_schemas';
 
 //a9db9a27-a72b-474e-a87e-42c11ea2491c
 
@@ -17,6 +18,12 @@ export async function POST(
     if (!email || !password || !name)
       return NextResponse.json(
         { error: 'Missing fields', success: null, data: null },
+        { status: 400 }
+      );
+    const validatedFields = RegisterSchema.safeParse({ email, password, name });
+    if (!validatedFields.success)
+      return NextResponse.json(
+        { error: 'Invalid fields', success: null, data: null },
         { status: 400 }
       );
     const emailExist = await db.user.findUnique({ where: { email } });

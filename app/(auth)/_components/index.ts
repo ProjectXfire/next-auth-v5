@@ -7,6 +7,7 @@ export { default as ErrorCard } from './card/ErrorCard';
 export { default as LoginForm } from './forms/LoginForm';
 export { default as NewVerificationForm } from './forms/NewVerificationForm';
 export { default as RegisterForm } from './forms/RegisterForm';
+export { default as ResetForm } from './forms/ResetForm';
 export { default as Header } from './header/Header';
 export { default as AuthLayout } from './layout/AuthLayout';
 export { default as Socials } from './socials/Socials';

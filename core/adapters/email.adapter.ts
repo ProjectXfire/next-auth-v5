@@ -17,3 +17,18 @@ export async function sendVerificationEmail(email: string, token: string) {
     return false;
   }
 }
+
+export async function sendResetPasswordEmail(email: string, token: string) {
+  try {
+    const resetPasswordLink = `${envs.webUrl}/auth/reset-password?token=${token}`;
+    await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: [email],
+      subject: 'Reset your password',
+      html: `<p>Click <a href="${resetPasswordLink}">here</a> to reset password</p>`,
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

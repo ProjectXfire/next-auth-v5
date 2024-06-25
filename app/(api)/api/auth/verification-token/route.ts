@@ -3,10 +3,7 @@ import { UserEntity } from '@/core/entities/user';
 import type { IResponse } from '@/shared/interfaces';
 import type { NextRequest } from 'next/server';
 import { db } from '@/core/lib';
-import {
-  deleteVerificationToken,
-  getVerificationTokenByToken,
-} from '@/core/services/verification-token/server';
+import { deleteVerificationToken, getVerificationTokenByToken } from '@/core/services/auth/server';
 
 export async function POST(
   req: NextRequest,

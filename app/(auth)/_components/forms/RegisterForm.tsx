@@ -10,7 +10,6 @@ import { register } from '@/core/services/auth/client';
 import type { RegisterDto } from '@/core/dtos/auth';
 // Styles & Components
 import styles from './Forms.module.css';
-import { CardWrapper } from '..';
 import {
   Button,
   Form,
@@ -45,61 +44,54 @@ function RegisterForm(): JSX.Element {
   };
 
   return (
-    <CardWrapper
-      headerLabel='Welcome back'
-      backButtonLabel='If you have an account click here'
-      backButtonHref='/auth/login'
-      showSocial
-    >
-      <Form {...form}>
-        <form className={styles['form']} onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name='name'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder='John Doe' {...field} disabled={isPending} />
-                </FormControl>
-                <FormMessage className={styles['form__message']} />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='email'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder='john.doe@example.com' {...field} disabled={isPending} />
-                </FormControl>
-                <FormMessage className={styles['form__message']} />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='password'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input placeholder='*******' {...field} type='password' disabled={isPending} />
-                </FormControl>
-                <FormMessage className={styles['form__message']} />
-              </FormItem>
-            )}
-          />
-          <FormError message={response.error} />
-          <FormSuccess message={response.success} />
-          <Button name='register' type='submit'>
-            Create an account
-          </Button>
-        </form>
-      </Form>
-    </CardWrapper>
+    <Form {...form}>
+      <form className={styles['form']} onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name='name'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder='John Doe' {...field} disabled={isPending} />
+              </FormControl>
+              <FormMessage className={styles['form__message']} />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='email'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder='john.doe@example.com' {...field} disabled={isPending} />
+              </FormControl>
+              <FormMessage className={styles['form__message']} />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='password'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input placeholder='*******' {...field} type='password' disabled={isPending} />
+              </FormControl>
+              <FormMessage className={styles['form__message']} />
+            </FormItem>
+          )}
+        />
+        <FormError message={response.error} />
+        <FormSuccess message={response.success} />
+        <Button name='register' type='submit'>
+          Create an account
+        </Button>
+      </form>
+    </Form>
   );
 }
 export default RegisterForm;
