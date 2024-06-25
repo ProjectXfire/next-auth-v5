@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,7 +13,6 @@ import { login } from '@/core/services/auth/client';
 import type { LoginDto } from '@/core/dtos/auth';
 // Styles & Components
 import styles from './Forms.module.css';
-import { CardWrapper } from '..';
 import {
   Button,
   Form,
@@ -51,12 +51,7 @@ function LoginForm(): JSX.Element {
   };
 
   return (
-    <CardWrapper
-      headerLabel='Welcome back'
-      backButtonLabel="Don't have an account?"
-      backButtonHref='/auth/register'
-      showSocial
-    >
+    <>
       <Form {...form}>
         <form className={styles['form']} onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -97,7 +92,10 @@ function LoginForm(): JSX.Element {
           </Button>
         </form>
       </Form>
-    </CardWrapper>
+      <Button className='px-0' size='sm' variant='link' asChild>
+        <NextLink href='/auth/reset'>Forgot password?</NextLink>
+      </Button>
+    </>
   );
 }
 export default LoginForm;

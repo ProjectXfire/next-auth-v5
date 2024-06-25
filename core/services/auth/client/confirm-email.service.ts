@@ -14,10 +14,6 @@ export async function confirmEmail(token: string): Promise<IResponse<UserEntity 
       throw new Error(data.error);
     }
     const data = await res.json();
-    /*await signIn('credentials', {
-      ...data.data,
-      callbackUrl: defaultLoginRedirect,
-    });*/
     return {
       data: data.data,
       error: null,

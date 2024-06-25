@@ -4,7 +4,8 @@ import type { NextRequest } from 'next/server';
 import { UserEntity } from '@/core/entities/user';
 import { db } from '@/core/lib';
 import { checkPassword, sendVerificationEmail } from '@/core/adapters';
-import { createVerificationToken } from '@/core/services/verification-token/server';
+import { createVerificationToken } from '@/core/services/auth/server';
+import { LoginSchema } from '@/app/(auth)/_schemas';
 
 export async function POST(
   req: NextRequest,
@@ -13,6 +14,12 @@ export async function POST(
   try {
     const { email, password } = await req.json();
     if (!email || !password)
+      return NextResponse.json(
+        { error: 'Invalid credentials', success: null, data: null },
+        { status: 400 }
+      );
+    const validatedFields = LoginSchema.safeParse({ email, password });
+    if (!validatedFields.success)
       return NextResponse.json(
         { error: 'Invalid credentials', success: null, data: null },
         { status: 400 }

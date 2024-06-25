@@ -1,9 +1,9 @@
-import type { RegisterDto } from '@/core/dtos/auth';
+import type { ChangePasswordDto } from '@/core/dtos/auth';
 import type { IResponse } from '@/shared/interfaces';
 
-export async function register(payload: RegisterDto): Promise<IResponse<null>> {
+export async function resetPassword(payload: ChangePasswordDto): Promise<IResponse<null>> {
   try {
-    const res = await fetch('/api/auth/register', {
+    const res = await fetch('/api/auth/send-reset-email', {
       method: 'POST',
       body: JSON.stringify(payload),
     });
