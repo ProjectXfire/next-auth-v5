@@ -1,14 +1,19 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import { envs } from '@/shared/constants';
 
-const resend = new Resend(envs.resendApiKey);
+const emailService = nodemailer.createTransport({
+  service: envs.mailerService,
+  auth: {
+    user: envs.mailerEmail,
+    pass: envs.mailerSecret,
+  },
+});
 
 export async function sendVerificationEmail(email: string, token: string) {
   try {
     const confirmLink = `${envs.webUrl}/auth/new-verification?token=${token}`;
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: [email],
+    await emailService.sendMail({
+      to: email,
       subject: 'Confirm your email',
       html: `<p>Click <a href="${confirmLink}">here</a></p>`,
     });
@@ -21,9 +26,8 @@ export async function sendVerificationEmail(email: string, token: string) {
 export async function sendResetPasswordEmail(email: string, token: string) {
   try {
     const resetPasswordLink = `${envs.webUrl}/auth/reset-password?token=${token}`;
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: [email],
+    await emailService.sendMail({
+      to: email,
       subject: 'Reset your password',
       html: `<p>Click <a href="${resetPasswordLink}">here</a> to reset password</p>`,
     });

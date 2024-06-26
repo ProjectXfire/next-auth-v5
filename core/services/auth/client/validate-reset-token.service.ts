@@ -1,11 +1,13 @@
-import type { ChangePasswordDto } from '@/core/dtos/auth';
+import type { PasswordResetTokenEntity } from '@/core/entities/auth';
 import type { IResponse } from '@/shared/interfaces';
 
-export async function resetPassword(payload: ChangePasswordDto): Promise<IResponse<null>> {
+export async function validateResetToken(
+  token: string
+): Promise<IResponse<null | PasswordResetTokenEntity>> {
   try {
-    const res = await fetch('/api/auth/send-reset-email', {
+    const res = await fetch('/api/auth/verification-reset-token', {
       method: 'POST',
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ token }),
     });
     if (!res.ok) {
       const data = await res.json();
@@ -14,7 +16,7 @@ export async function resetPassword(payload: ChangePasswordDto): Promise<IRespon
     const data = await res.json();
     return {
       error: null,
-      data: null,
+      data: data.data,
       success: data.success,
     };
   } catch (error: any) {

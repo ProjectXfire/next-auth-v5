@@ -5,7 +5,7 @@ import { deleteResetToken } from './delete-reset-token.service';
 
 export async function createResetToken(email: string) {
   try {
-    const expires = new Date(new Date().getTime() + 300 * 1000);
+    const expires = new Date(new Date().getTime() + 600 * 1000);
     const token = generateToken();
     const existToken = await getResetTokenByEmail(email);
     if (existToken) {

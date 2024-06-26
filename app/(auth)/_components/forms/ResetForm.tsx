@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChangePasswordSchema } from '../../_schemas';
-import type { ChangePasswordDto } from '@/core/dtos/auth';
-import { resetPassword } from '@/core/services/auth/client';
+import { SendEmailSchema } from '../../_schemas';
+import type { ResetPasswordEmailDto } from '@/core/dtos/auth';
+import { resetPasswordEmail } from '@/core/services/auth/client';
 // Styles & Components
 import styles from './Forms.module.css';
 import {
@@ -28,14 +28,14 @@ function ResetForm(): JSX.Element {
     success: '',
   });
 
-  const form = useForm<ChangePasswordDto>({
-    resolver: zodResolver(ChangePasswordSchema),
+  const form = useForm<ResetPasswordEmailDto>({
+    resolver: zodResolver(SendEmailSchema),
     defaultValues: { email: '' },
   });
 
-  const onSubmit = async (data: ChangePasswordDto): Promise<void> => {
+  const onSubmit = async (data: ResetPasswordEmailDto): Promise<void> => {
     setIsPending(true);
-    const { error, success } = await resetPassword(data);
+    const { error, success } = await resetPasswordEmail(data);
     if (error) setResponse({ error, success: '' });
     if (success) setResponse({ error: '', success });
     setIsPending(false);
