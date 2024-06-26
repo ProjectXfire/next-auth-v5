@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { IResponse } from '@/shared/interfaces';
 import type { NextRequest } from 'next/server';
 import { db } from '@/core/lib';
-import { ChangePasswordSchema } from '@/app/(auth)/_schemas';
+import { SendEmailSchema } from '@/app/(auth)/_schemas';
 import { createResetToken } from '@/core/services/auth/server';
 import { sendResetPasswordEmail } from '@/core/adapters';
 
@@ -17,7 +17,7 @@ export async function POST(
         { error: 'Invalid email', success: null, data: null },
         { status: 400 }
       );
-    const validatedFields = ChangePasswordSchema.safeParse({ email });
+    const validatedFields = SendEmailSchema.safeParse({ email });
     if (!validatedFields.success)
       return NextResponse.json(
         { error: 'Invalid email', success: null, data: null },

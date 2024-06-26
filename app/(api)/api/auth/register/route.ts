@@ -58,7 +58,12 @@ export async function POST(
       );
     const user = UserEntity.fromObject(userDb);
     return NextResponse.json(
-      { data: user, success: 'Confirmation email sent!', error: null },
+      {
+        data: user,
+        success:
+          'Confirmation email sent!, If the email does not exist you will not receive the email',
+        error: null,
+      },
       { status: 201 }
     );
   } catch (error) {

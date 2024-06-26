@@ -93,7 +93,7 @@ function LoginForm(): JSX.Element {
         </form>
       </Form>
       <Button className='px-0' size='sm' variant='link' asChild>
-        <NextLink href='/auth/reset'>Forgot password?</NextLink>
+        <NextLink href='/auth/reset-password-email'>Forgot password?</NextLink>
       </Button>
     </>
   );
