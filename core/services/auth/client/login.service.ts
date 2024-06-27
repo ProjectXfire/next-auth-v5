@@ -1,19 +1,22 @@
 import type { LoginDto } from '@/core/dtos/auth';
+import type { UserEntity } from '@/core/entities/user';
 import type { IResponse } from '@/shared/interfaces';
+import { TF_TOKEN } from '@/shared/constants';
 import { signIn } from 'next-auth/react';
-import { LoginSchema } from '@/app/(auth)/_schemas';
 
-export async function login(payload: LoginDto): Promise<IResponse<null>> {
+export async function login(payload: LoginDto): Promise<IResponse<null | UserEntity>> {
   try {
     const res = await fetch('/api/auth/login', { method: 'POST', body: JSON.stringify(payload) });
     if (!res.ok) {
       const data = await res.json();
-      if (res.status === 403)
-        return {
-          error: null,
-          data: null,
-          success: data.error,
-        };
+      if (res.status === 403) {
+        if (data.success === TF_TOKEN)
+          return {
+            error: null,
+            data: data.data,
+            success: data.success,
+          };
+      }
       throw new Error(data.error);
     }
     const data = await res.json();

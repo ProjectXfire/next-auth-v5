@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import type { IResponse } from '@/shared/interfaces';
 import type { NextRequest } from 'next/server';
+import { TF_TOKEN } from '@/shared/constants';
 import { UserEntity } from '@/core/entities/user';
-import { db } from '@/core/lib';
-import { checkPassword, sendVerificationEmail } from '@/core/adapters';
-import { createVerificationToken } from '@/core/services/auth/server';
 import { LoginSchema } from '@/app/(auth)/_schemas';
+import { db } from '@/core/lib';
+import { checkPassword, sendTwoFactorEmail, sendVerificationEmail } from '@/core/adapters';
+import { createTwoFactorToken, createVerificationToken } from '@/core/services/auth/server';
 
 export async function POST(
   req: NextRequest,
@@ -36,6 +37,7 @@ export async function POST(
         { error: 'Invalid credentials', success: null, data: null },
         { status: 400 }
       );
+    /* Validate email verified*/
     if (!userDb.emailVerified) {
       const verificationToken = await createVerificationToken(userDb.email);
       if (!verificationToken)
@@ -52,12 +54,30 @@ export async function POST(
           { error: 'Error on send email, please try again', success: null, data: null },
           { status: 400 }
         );
+
       return NextResponse.json(
-        { error: 'Confirmation email re-sent!', success: null, data: null },
+        { error: null, success: 'Confirmation email re-sent!', data: null },
         { status: 403 }
       );
     }
-    // Todo: add 2fa check
+    /* Validate if have two factor auth activated */
+    if (userDb.isTwoFactorEnabled) {
+      const twoFactorToken = await createTwoFactorToken(userDb.email);
+      if (!twoFactorToken)
+        return NextResponse.json(
+          { error: 'Two factor error', success: null, data: null },
+          { status: 400 }
+        );
+      const { email, token } = twoFactorToken;
+      const sendFactorToken = await sendTwoFactorEmail(email, token);
+      if (!sendFactorToken)
+        return NextResponse.json(
+          { error: 'Error on send code', success: null, data: null },
+          { status: 400 }
+        );
+      const user = UserEntity.fromObject(userDb);
+      return NextResponse.json({ error: null, success: TF_TOKEN, data: user }, { status: 403 });
+    }
     const user = UserEntity.fromObject(userDb);
     return NextResponse.json({ data: user, success: 'User valid', error: null }, { status: 200 });
   } catch (error) {

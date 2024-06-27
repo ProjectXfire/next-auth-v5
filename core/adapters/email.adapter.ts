@@ -36,3 +36,16 @@ export async function sendResetPasswordEmail(email: string, token: string) {
     return false;
   }
 }
+
+export async function sendTwoFactorEmail(email: string, token: string) {
+  try {
+    await emailService.sendMail({
+      to: email,
+      subject: 'Two Authentication Code',
+      html: `<p>Your code: ${token}</p>`,
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

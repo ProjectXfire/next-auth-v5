@@ -1,20 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useCode } from '@/core/states/auth';
 import { LoginSchema } from '../../_schemas';
-import { errorsQuery } from '@/shared/constants';
+import { errorsQuery, TF_TOKEN } from '@/shared/constants';
 // Services
-import { login } from '@/core/services/auth/client';
-// Dtos
-import type { LoginDto } from '@/core/dtos/auth';
+import { login, validateCode } from '@/core/services/auth/client';
 // Styles & Components
 import styles from './Forms.module.css';
 import {
   Button,
+  CustomDialog,
   Form,
   FormControl,
   FormError,
@@ -25,33 +26,65 @@ import {
   FormSuccess,
   Input,
 } from '@/shared/components';
+import { Code } from '..';
 
 const initResponse = { error: '', success: '' };
 
 function LoginForm(): JSX.Element {
-  const [isPending, setIsPending] = useState(false);
   const params = useSearchParams();
+  const open = useCode((s) => s.open);
+  const userIdRef = useRef('');
+  const [isPending, setIsPending] = useState(false);
   const [response, setResponse] = useState<{ error: string; success: string }>({
     ...initResponse,
     error: errorsQuery[params.get('error') ?? ''] ?? '',
   });
 
-  const form = useForm<LoginDto>({
+  const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = async (data: LoginDto): Promise<void> => {
+  const onTwoFactorAuth = async (code: string) => {
     setResponse(initResponse);
     setIsPending(true);
-    const { error, success } = await login(data);
+    const { error, success } = await validateCode({
+      code,
+      email: form.getValues('email'),
+      userId: userIdRef.current,
+    });
     if (error) setResponse((cv) => ({ ...cv, error }));
     if (success) setResponse((cv) => ({ ...cv, success }));
     setIsPending(false);
   };
 
+  const onSubmit = async (data: z.infer<typeof LoginSchema>): Promise<void> => {
+    setResponse(initResponse);
+    setIsPending(true);
+    const { error, success, data: user } = await login(data);
+    if (error) setResponse((cv) => ({ ...cv, error }));
+    if (success) {
+      if (success === TF_TOKEN) {
+        userIdRef.current = user!.id;
+        open();
+        setIsPending(false);
+        return;
+      }
+      setResponse((cv) => ({ ...cv, success }));
+    }
+    setIsPending(false);
+  };
+
   return (
     <>
+      <CustomDialog
+        title='Code'
+        description='Please check your email and put the code sent'
+        onClose={() => setResponse(initResponse)}
+      >
+        <Code onClick={onTwoFactorAuth} disabled={isPending} />
+        <FormError message={response.error} />
+      </CustomDialog>
       <Form {...form}>
         <form className={styles['form']} onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
