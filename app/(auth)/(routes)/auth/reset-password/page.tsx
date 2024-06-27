@@ -1,7 +1,7 @@
 // Styles & Components
 import { CardWrapper, ResetPasswordForm } from '@/app/(auth)/_components';
 
-function ResetPassword(): JSX.Element {
+function ResetPasswordPage(): JSX.Element {
   return (
     <CardWrapper
       headerLabel='Choose new password'
@@ -12,4 +12,4 @@ function ResetPassword(): JSX.Element {
     </CardWrapper>
   );
 }
-export default ResetPassword;
+export default ResetPasswordPage;

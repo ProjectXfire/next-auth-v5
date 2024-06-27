@@ -1,5 +1,5 @@
 import { db } from '@/core/lib';
-import type { PasswordResetToken, VerificationToken } from '@prisma/client';
+import type { PasswordResetToken, TwoFactorToken, VerificationToken } from '@prisma/client';
 
 export async function getVerificationTokenByEmail(
   email: string
@@ -35,6 +35,24 @@ export async function getResetTokenByEmail(email: string): Promise<PasswordReset
 export async function getResetTokenByToken(token: string): Promise<PasswordResetToken | null> {
   try {
     const resetToken = await db.passwordResetToken.findUnique({ where: { token } });
+    return resetToken;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getTwoFactorTokenByEmail(email: string): Promise<TwoFactorToken | null> {
+  try {
+    const resetToken = await db.twoFactorToken.findFirst({ where: { email } });
+    return resetToken;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getTwoFactorTokenByToken(token: string): Promise<TwoFactorToken | null> {
+  try {
+    const resetToken = await db.twoFactorToken.findUnique({ where: { token } });
     return resetToken;
   } catch (error) {
     return null;

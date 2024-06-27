@@ -1,7 +1,7 @@
 // Styles & Components
 import { CardWrapper, ResetForm } from '@/app/(auth)/_components';
 
-function ResetPage() {
+function ResetPasswordEmailPage() {
   return (
     <CardWrapper
       headerLabel='Restore your password'
@@ -12,4 +12,4 @@ function ResetPage() {
     </CardWrapper>
   );
 }
-export default ResetPage;
+export default ResetPasswordEmailPage;

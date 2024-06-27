@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChangePasswordSchema } from '../../_schemas';
 import { resetPassword, validateResetToken } from '@/core/services/auth/client';
-import type { ChangePasswordDto } from '@/core/dtos/auth';
 // Styles & Components
 import styles from './Forms.module.css';
 import {

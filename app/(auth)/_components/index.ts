@@ -4,6 +4,7 @@ export { default as LoginButton } from './buttons/LoginButton';
 export { default as CardCustomHeader } from './card/CardCustomHeader';
 export { default as CardWrapper } from './card/CardWrapper';
 export { default as ErrorCard } from './card/ErrorCard';
+export { default as Code } from './code/Code';
 export { default as LoginForm } from './forms/LoginForm';
 export { default as NewVerificationForm } from './forms/NewVerificationForm';
 export { default as RegisterForm } from './forms/RegisterForm';
