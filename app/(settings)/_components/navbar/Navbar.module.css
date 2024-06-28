@@ -1,0 +1,16 @@
+.navbar {
+  width: 98%;
+  max-width: 600px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.navbar__left-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

@@ -5,13 +5,19 @@
 html,
 body,
 :root {
+  height: 100%;
   --color-subtitle: #a1aab8;
   --color-error: #ffd2d2;
   --color-error-text: #da1f1f;
   --color-success: #cdf1e4;
   --color-primary: #212f6e;
   --color-success-text: #119142;
-  height: 100%;
+  --bg-gradient: linear-gradient(
+    90deg,
+    rgba(11, 79, 150, 1) 0%,
+    rgba(91, 164, 246, 1) 50%,
+    rgba(11, 79, 150, 1) 100%
+  );
 }
 
 @layer base {
