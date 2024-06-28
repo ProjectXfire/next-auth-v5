@@ -5,7 +5,14 @@ import { signOut } from 'next-auth/react';
 
 function CloseSession(): JSX.Element {
   return (
-    <Button type='button' name='signout' onClick={() => signOut()}>
+    <Button
+      size='sm'
+      variant='destructive'
+      className='w-full'
+      type='button'
+      name='signout'
+      onClick={() => signOut()}
+    >
       Sign Out
     </Button>
   );
