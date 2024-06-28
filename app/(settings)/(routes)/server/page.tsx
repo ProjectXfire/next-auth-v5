@@ -1,6 +1,6 @@
 import { getCurrentSession } from '@/core/services/auth/server';
 // Styles & Components
-import { UserInfo } from '../../_components';
+import { UserCard } from '../../_components';
 import { FormError } from '@/shared/components';
 
 async function ServerPage(): Promise<JSX.Element> {
@@ -12,7 +12,7 @@ async function ServerPage(): Promise<JSX.Element> {
 
   return (
     <section>
-      <UserInfo label='🖥️ Server component' user={session} />
+      <UserCard label='🖥️ Server component' user={session} />
     </section>
   );
 }

@@ -1,36 +1,36 @@
 import type { UserEntity } from '@/core/entities/user';
 // Styles & Components
-import styles from './UserInfo.module.css';
+import styles from './Admin.module.css';
 import { Card, CardHeader, CardContent } from '@/shared/components';
-import { UserBoxInfo } from '..';
+import { UserItem } from '..';
 
 interface Props {
   label: string;
   user: UserEntity;
 }
 
-function UserInfo({ label, user }: Props): JSX.Element {
+function UserCard({ label, user }: Props): JSX.Element {
   return (
-    <Card className={styles['user-info']}>
+    <Card className={styles['card']}>
       <CardHeader>
-        <p className={styles['user-info__title']}>{label}</p>
+        <p className={styles['card__title']}>{label}</p>
       </CardHeader>
-      <CardContent className={styles['user-info__content']}>
+      <CardContent className={styles['card__content']}>
         {Object.entries(user).map(([key, value], i) => {
-          if (value === null) return <UserBoxInfo key={i} field={key} value='No info' />;
+          if (value === null) return <UserItem key={i} field={key} value='No info' />;
           if (typeof value === 'boolean')
             return (
-              <UserBoxInfo
+              <UserItem
                 key={i}
                 field={key}
                 variant={value ? 'success' : 'destructive'}
                 value={value ? 'On' : 'Off'}
               />
             );
-          return <UserBoxInfo key={i} field={key} value={value} />;
+          return <UserItem key={i} field={key} value={value} />;
         })}
       </CardContent>
     </Card>
   );
 }
-export default UserInfo;
+export default UserCard;
