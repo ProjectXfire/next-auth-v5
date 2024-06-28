@@ -1,5 +1,7 @@
 'use client';
 
+// Services
+import { useCurrentSession } from '../../_hooks';
 // Styles & Components
 import styles from './Button.module.css';
 import {
@@ -12,7 +14,6 @@ import {
   AvatarFallback,
 } from '@/shared/components';
 import { User } from 'lucide-react';
-import { useCurrentSession } from '../../_hooks';
 import { CloseSession } from '..';
 
 function UserButton(): JSX.Element {
@@ -29,8 +30,6 @@ function UserButton(): JSX.Element {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem></DropdownMenuItem>
-        <DropdownMenuItem></DropdownMenuItem>
         <DropdownMenuItem>
           <CloseSession />
         </DropdownMenuItem>

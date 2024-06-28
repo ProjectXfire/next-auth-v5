@@ -30,6 +30,15 @@ export class UserEntity {
 
   static fromObject(object: { [key: string]: any }) {
     const { id, email, emailVerified, image, name, role, isTwoFactorEnabled } = object;
-    return new UserEntity({ id, email, emailVerified, image, name, role, isTwoFactorEnabled });
+
+    return new UserEntity({
+      id,
+      email,
+      emailVerified,
+      image,
+      name,
+      role,
+      isTwoFactorEnabled,
+    });
   }
 }
