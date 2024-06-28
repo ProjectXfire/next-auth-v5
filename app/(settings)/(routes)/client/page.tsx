@@ -3,7 +3,7 @@
 import { useCurrentSession } from '../../_hooks';
 // Styles & Components
 import { FormError } from '@/shared/components';
-import { UserInfo } from '../../_components';
+import { UserCard } from '../../_components';
 
 function ClientPage() {
   const session = useCurrentSession();
@@ -14,7 +14,7 @@ function ClientPage() {
 
   return (
     <section>
-      <UserInfo label='📱 Client component' user={session} />
+      <UserCard label='📱 Client component' user={session} />
     </section>
   );
 }

@@ -1,32 +1,32 @@
-.user-info {
+.card {
   width: 600px;
 }
 
-.user-info__title {
+.card__title {
   text-align: center;
   font-weight: bold;
   font-size: 1.3rem;
 }
 
-.user-info__content {
+.card__content {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
 
 @media (width < 768px) {
-  .user-info {
+  .card {
     width: 400px;
   }
 }
 
 @media (width < 425px) {
-  .user-info {
+  .card {
     width: 300px;
   }
 }
 
-.user-box-info {
+.user-item {
   padding: 10px;
   display: flex;
   gap: 5px;
@@ -37,11 +37,11 @@
   border-radius: 5px;
 }
 
-.user-box-info__key {
+.user-item__key {
   font-weight: bold;
 }
 
-.user-box-info__value {
+.user-item__value {
   max-width: 200px;
   padding: 1px 5px;
   background-color: rgb(243, 243, 243);
@@ -52,12 +52,27 @@
   white-space: nowrap;
 }
 
-.user-box-info--destructive {
+.user-item--destructive {
   background-color: var(--color-error-text);
   color: white;
 }
 
-.user-box-info--success {
+.user-item--success {
   background-color: var(--color-success-text);
   color: white;
+}
+
+.admin-item {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px 1px rgb(224, 224, 224);
+}
+
+.admin-item__text {
+  font-weight: bold;
 }

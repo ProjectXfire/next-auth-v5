@@ -1,6 +1,9 @@
 export { default as CloseSession } from './buttons/CloseSession';
 export { default as UserButton } from './buttons/UserButton';
+export { default as AdminCard } from './card/AdminCard';
+export { default as AdminItem } from './card/AdminItem';
+export { default as UserCard } from './card/UserCard';
+export { default as UserItem } from './card/UserItem';
 export { default as SettingsContainer } from './containers/SettingsContainer';
 export { default as Navbar } from './navbar/Navbar';
-export { default as UserBoxInfo } from './user-info/UserBoxInfo';
-export { default as UserInfo } from './user-info/UserInfo';
+export { default as RoleGate } from './role-gate/RoleGate';
