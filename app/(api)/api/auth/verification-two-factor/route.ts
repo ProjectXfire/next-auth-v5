@@ -20,18 +20,18 @@ export async function POST(
     if (!twoFactorToken)
       return NextResponse.json(
         { error: 'Invalid code', success: null, data: null },
-        { status: 400 }
+        { status: 401 }
       );
     if (twoFactorToken.token !== code)
       return NextResponse.json(
         { error: 'Invalid code', success: null, data: null },
-        { status: 400 }
+        { status: 401 }
       );
     const hasExpires = new Date(twoFactorToken.expires) < new Date();
     if (hasExpires)
       return NextResponse.json(
         { error: 'Code has expired', success: null, data: null },
-        { status: 400 }
+        { status: 401 }
       );
     await db.twoFactorToken.delete({ where: { id: twoFactorToken.id } });
     const userDb = await db.user.findUnique({ where: { id: userId } });

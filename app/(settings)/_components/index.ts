@@ -2,6 +2,7 @@ export { default as CloseSession } from './buttons/CloseSession';
 export { default as UserButton } from './buttons/UserButton';
 export { default as AdminCard } from './card/AdminCard';
 export { default as AdminItem } from './card/AdminItem';
+export { default as SettingsCard } from './card/SettingsCard';
 export { default as UserCard } from './card/UserCard';
 export { default as UserItem } from './card/UserItem';
 export { default as SettingsContainer } from './containers/SettingsContainer';

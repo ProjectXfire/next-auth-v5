@@ -76,3 +76,9 @@
 .admin-item__text {
   font-weight: bold;
 }
+
+.settings-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

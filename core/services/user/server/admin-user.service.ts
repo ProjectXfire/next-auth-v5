@@ -1,8 +1,8 @@
 'use server';
 
-import { IResponse } from '@/shared/interfaces';
+import type { IResponse } from '@/shared/interfaces';
 import { getCurrentSession } from '../../auth/server';
-import { Role } from '@/core/types/auth';
+import { Role } from '@/core/types/user';
 
 export async function testAdminRoleServer(): Promise<IResponse<null>> {
   try {

@@ -1,4 +1,4 @@
-import type { UserEntity } from '@/core/entities/user';
+import type { UserAuth } from '@/core/types/user';
 // Styles & Components
 import styles from './Admin.module.css';
 import { Card, CardHeader, CardContent } from '@/shared/components';
@@ -6,7 +6,7 @@ import { UserItem } from '..';
 
 interface Props {
   label: string;
-  user: UserEntity;
+  user: UserAuth;
 }
 
 function UserCard({ label, user }: Props): JSX.Element {

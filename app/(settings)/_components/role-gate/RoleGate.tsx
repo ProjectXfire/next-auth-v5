@@ -1,4 +1,4 @@
-import { Role } from '@/core/types/auth';
+import { Role } from '@/core/types/user';
 // Styles & Components
 import { FormError } from '@/shared/components';
 

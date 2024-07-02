@@ -1,11 +1,12 @@
 import { auth } from '@/auth';
-import { UserEntity } from '@/core/entities/user';
+import type { UserAuth } from '@/core/types/user';
 
-export async function getCurrentSession(): Promise<UserEntity | null> {
+export async function getCurrentSession(): Promise<UserAuth | null> {
   try {
     const session = await auth();
     if (!session) return null;
-    return UserEntity.fromObject(session.user);
+    if (!session.user) return null;
+    return session.user;
   } catch (error) {
     return null;
   }
