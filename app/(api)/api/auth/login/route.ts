@@ -17,25 +17,25 @@ export async function POST(
     if (!email || !password)
       return NextResponse.json(
         { error: 'Invalid credentials', success: null, data: null },
-        { status: 400 }
+        { status: 401 }
       );
     const validatedFields = LoginSchema.safeParse({ email, password });
     if (!validatedFields.success)
       return NextResponse.json(
         { error: 'Invalid credentials', success: null, data: null },
-        { status: 400 }
+        { status: 401 }
       );
     const userDb = await db.user.findUnique({ where: { email } });
     if (!userDb)
       return NextResponse.json(
         { error: 'Invalid credentials', success: null, data: null },
-        { status: 400 }
+        { status: 401 }
       );
     const isValidPassword = checkPassword(password, userDb.password!);
     if (!isValidPassword)
       return NextResponse.json(
         { error: 'Invalid credentials', success: null, data: null },
-        { status: 400 }
+        { status: 401 }
       );
     /* Validate email verified*/
     if (!userDb.emailVerified) {
@@ -66,7 +66,7 @@ export async function POST(
       if (!twoFactorToken)
         return NextResponse.json(
           { error: 'Two factor error', success: null, data: null },
-          { status: 400 }
+          { status: 401 }
         );
       const { email, token } = twoFactorToken;
       const sendFactorToken = await sendTwoFactorEmail(email, token);

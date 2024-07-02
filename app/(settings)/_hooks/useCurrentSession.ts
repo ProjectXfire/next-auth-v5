@@ -1,9 +1,8 @@
-import { UserEntity } from '@/core/entities/user';
+import { UserAuth } from '@/core/types/user';
 import { useSession } from 'next-auth/react';
 
-export function useCurrentSession(): UserEntity | null {
+export function useCurrentSession(): UserAuth | null {
   const session = useSession();
   if (!session.data) return null;
-  const user = UserEntity.fromObject(session.data.user);
-  return user;
+  return session.data.user;
 }

@@ -10,5 +10,7 @@ export * from './ui/DropdownMenu';
 export * from './ui/Form';
 export * from './ui/Input';
 export * from './ui/Label';
+export * from './ui/Select';
 export * from './ui/Separator';
 export * from './ui/Sonner';
+export * from './ui/Switch';

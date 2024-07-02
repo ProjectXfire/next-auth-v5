@@ -1,4 +1,4 @@
-import { IResponse } from '@/shared/interfaces';
+import type { IResponse } from '@/shared/interfaces';
 
 export async function testAdminRole(): Promise<IResponse<null>> {
   try {

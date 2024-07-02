@@ -14,7 +14,7 @@ export async function POST(
     if (!existToken)
       return NextResponse.json(
         { error: 'Token does not exist', success: null, data: null },
-        { status: 400 }
+        { status: 401 }
       );
     const hasExpired = new Date(existToken.expires) < new Date();
     if (hasExpired)
@@ -24,7 +24,7 @@ export async function POST(
           success: null,
           data: null,
         },
-        { status: 400 }
+        { status: 401 }
       );
     const tokenEntity = PasswordResetTokenEntity.fromObject(existToken);
     return NextResponse.json(
