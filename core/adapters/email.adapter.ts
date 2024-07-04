@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import { envs } from '@/shared/constants';
 
-const emailService = nodemailer.createTransport({
+export const emailService = nodemailer.createTransport({
   service: envs.mailerService,
   auth: {
     user: envs.mailerEmail,
@@ -11,6 +11,7 @@ const emailService = nodemailer.createTransport({
 
 export async function sendVerificationEmail(email: string, token: string) {
   try {
+    if (!email || !token) return false;
     const confirmLink = `${envs.webUrl}/auth/new-verification?token=${token}`;
     await emailService.sendMail({
       to: email,
@@ -25,6 +26,7 @@ export async function sendVerificationEmail(email: string, token: string) {
 
 export async function sendResetPasswordEmail(email: string, token: string) {
   try {
+    if (!email || !token) return false;
     const resetPasswordLink = `${envs.webUrl}/auth/reset-password?token=${token}`;
     await emailService.sendMail({
       to: email,
@@ -39,6 +41,7 @@ export async function sendResetPasswordEmail(email: string, token: string) {
 
 export async function sendTwoFactorEmail(email: string, token: string) {
   try {
+    if (!email || !token) return false;
     await emailService.sendMail({
       to: email,
       subject: 'Two Authentication Code',
