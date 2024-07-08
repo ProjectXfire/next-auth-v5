@@ -5,7 +5,7 @@ export async function deleteVerificationToken(id: string) {
     await db.verificationToken.delete({ where: { id } });
     return true;
   } catch (error) {
-    return false;
+    throw new Error('Internal error server');
   }
 }
 
@@ -14,7 +14,7 @@ export async function deleteResetToken(id: string) {
     await db.passwordResetToken.delete({ where: { id } });
     return true;
   } catch (error) {
-    return false;
+    throw new Error('Internal error server');
   }
 }
 
@@ -23,6 +23,6 @@ export async function deleteTwoFactorToken(id: string) {
     await db.twoFactorToken.delete({ where: { id } });
     return true;
   } catch (error) {
-    return false;
+    throw new Error('Internal error server');
   }
 }

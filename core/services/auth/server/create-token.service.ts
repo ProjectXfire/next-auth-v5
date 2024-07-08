@@ -59,7 +59,6 @@ export async function createTwoFactorToken(email: string) {
     });
     return twoFactorToken;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
