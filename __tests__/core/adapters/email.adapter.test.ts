@@ -1,4 +1,3 @@
-import nodemailer from 'nodemailer';
 import { emailService, sendVerificationEmail } from '@/core/adapters';
 
 beforeEach(() => {

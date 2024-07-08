@@ -1,7 +1,5 @@
-import { signIn } from 'next-auth/react';
 import type { UserEntity } from '@/core/entities/user';
 import type { IResponse } from '@/shared/interfaces';
-import { defaultLoginRedirect } from '@/shared/constants';
 
 export async function confirmEmail(token: string): Promise<IResponse<UserEntity | null>> {
   try {

@@ -1,4 +1,3 @@
-import { UserEntity } from '@/core/entities/user';
 import { db } from '@/core/lib';
 
 export async function updateEmailVerified(id?: string): Promise<boolean> {
