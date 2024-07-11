@@ -1,16 +1,15 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-import { defaultLoginRedirect } from '@/shared/constants';
 // Styles & Components
 import styles from './Socials.module.css';
 import { FcGoogle } from 'react-icons/fc';
 import { Button, Separator } from '@/shared/components';
 import { FaGithub } from 'react-icons/fa';
+import { oauthLogin } from '@/core/services/auth/client';
 
 function Socials(): JSX.Element {
-  const onSignIn = (provider: 'google' | 'github') => {
-    signIn(provider, { callbackUrl: defaultLoginRedirect });
+  const onSignIn = async (provider: string) => {
+    const { error, success } = await oauthLogin(provider);
   };
 
   return (

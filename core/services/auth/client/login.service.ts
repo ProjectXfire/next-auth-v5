@@ -1,7 +1,7 @@
 import type { LoginDto } from '@/core/dtos/auth';
 import type { UserEntity } from '@/core/entities/user';
 import type { IResponse } from '@/shared/interfaces';
-import { TF_TOKEN } from '@/shared/constants';
+import { defaultLoginRedirect, TF_TOKEN } from '@/shared/constants';
 import { signIn } from 'next-auth/react';
 
 export async function login(payload: LoginDto): Promise<IResponse<null | UserEntity>> {
@@ -28,6 +28,23 @@ export async function login(payload: LoginDto): Promise<IResponse<null | UserEnt
       error: null,
       data: null,
       success: data.success,
+    };
+  } catch (error: any) {
+    return {
+      error: error.message,
+      data: null,
+      success: null,
+    };
+  }
+}
+
+export async function oauthLogin(provider: string) {
+  try {
+    await signIn(provider, { callbackUrl: defaultLoginRedirect });
+    return {
+      error: null,
+      data: null,
+      success: 'Oauth successfull',
     };
   } catch (error: any) {
     return {

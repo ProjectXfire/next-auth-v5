@@ -94,7 +94,12 @@ function LoginForm(): JSX.Element {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder='john.doe@example.com' {...field} disabled={isPending} />
+                  <Input
+                    aria-label='email'
+                    placeholder='john.doe@example.com'
+                    {...field}
+                    disabled={isPending}
+                  />
                 </FormControl>
                 <FormMessage className={styles['form__message']} />
               </FormItem>
@@ -108,6 +113,7 @@ function LoginForm(): JSX.Element {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
+                    aria-label='password'
                     placeholder='***********'
                     {...field}
                     type='password'

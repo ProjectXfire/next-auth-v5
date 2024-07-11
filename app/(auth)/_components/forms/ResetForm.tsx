@@ -51,7 +51,12 @@ function ResetForm(): JSX.Element {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder='john.doe@example.com' {...field} disabled={isPending} />
+                <Input
+                  aria-label='email'
+                  placeholder='john.doe@example.com'
+                  {...field}
+                  disabled={isPending}
+                />
               </FormControl>
               <FormMessage className={styles['form__message']} />
             </FormItem>
@@ -59,7 +64,7 @@ function ResetForm(): JSX.Element {
         />
         <FormError message={response.error} />
         <FormSuccess message={response.success} />
-        <Button name='login' type='submit'>
+        <Button aria-label='submit' name='login' type='submit'>
           Send reset email
         </Button>
       </form>
