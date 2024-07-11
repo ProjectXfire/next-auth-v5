@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <Block>
       <Header />
-      <LoginButton asChild mode='modal'>
+      <LoginButton>
         <Button name='signin' variant='secondary'>
           Sign In
         </Button>

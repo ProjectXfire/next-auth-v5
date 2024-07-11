@@ -23,7 +23,7 @@ import {
   Input,
 } from '@/shared/components';
 
-const initResponse = { error: '', success: '', name: '' };
+const initResponse = { error: '', success: '' };
 
 function RegisterForm(): JSX.Element {
   const [isPending, setIsPending] = useState(false);
@@ -53,7 +53,7 @@ function RegisterForm(): JSX.Element {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder='John Doe' {...field} disabled={isPending} />
+                <Input aria-label='name' placeholder='John Doe' {...field} disabled={isPending} />
               </FormControl>
               <FormMessage className={styles['form__message']} />
             </FormItem>
@@ -66,7 +66,12 @@ function RegisterForm(): JSX.Element {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder='john.doe@example.com' {...field} disabled={isPending} />
+                <Input
+                  aria-label='email'
+                  placeholder='john.doe@example.com'
+                  {...field}
+                  disabled={isPending}
+                />
               </FormControl>
               <FormMessage className={styles['form__message']} />
             </FormItem>
@@ -79,7 +84,13 @@ function RegisterForm(): JSX.Element {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder='*******' {...field} type='password' disabled={isPending} />
+                <Input
+                  aria-label='password'
+                  placeholder='*******'
+                  {...field}
+                  type='password'
+                  disabled={isPending}
+                />
               </FormControl>
               <FormMessage className={styles['form__message']} />
             </FormItem>
@@ -87,7 +98,7 @@ function RegisterForm(): JSX.Element {
         />
         <FormError message={response.error} />
         <FormSuccess message={response.success} />
-        <Button name='register' type='submit'>
+        <Button aria-label='register' name='register' type='submit'>
           Create an account
         </Button>
       </form>

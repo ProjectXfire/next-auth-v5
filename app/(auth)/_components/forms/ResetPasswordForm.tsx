@@ -25,7 +25,9 @@ import {
 
 function ResetPasswordForm(): JSX.Element {
   const query = useSearchParams();
+  const token = query.get('token');
   const [isPending, setIsPending] = useState(true);
+  const [hasToken, setHasToken] = useState('');
   const [response, setResponse] = useState<{ error: string; success: string }>({
     error: '',
     success: '',
@@ -38,7 +40,6 @@ function ResetPasswordForm(): JSX.Element {
 
   const onSubmit = async (payload: z.infer<typeof ChangePasswordSchema>): Promise<void> => {
     setIsPending(true);
-    const token = query.get('token');
     if (!token) {
       if (token) setResponse({ error: 'Token not found', success: '' });
       return;
@@ -59,17 +60,17 @@ function ResetPasswordForm(): JSX.Element {
   };
 
   const isValidToken = useCallback(async () => {
-    setIsPending(true);
-    const token = query.get('token');
     if (!token) {
+      setHasToken('Token not found');
       setIsPending(false);
-      return { data: null, error: 'Token not found', success: null };
+    } else {
+      const { error, success } = await validateResetToken(token);
+      setIsPending(false);
+      setHasToken('');
+      if (error) setResponse({ error, success: '' });
+      if (success) setResponse({ error: '', success });
     }
-    const { error, success } = await validateResetToken(token);
-    if (error) setResponse({ error, success: '' });
-    if (success) setResponse({ error: '', success });
-    setIsPending(false);
-  }, [query]);
+  }, [token]);
 
   useEffect(() => {
     isValidToken();
@@ -86,7 +87,7 @@ function ResetPasswordForm(): JSX.Element {
     <Form {...form}>
       <form className={styles['form']} onSubmit={form.handleSubmit(onSubmit)}>
         <>
-          {!response.error && (
+          {!hasToken && (
             <>
               <FormField
                 control={form.control}
@@ -96,6 +97,7 @@ function ResetPasswordForm(): JSX.Element {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
+                        aria-label='password'
                         placeholder='***********'
                         type='password'
                         {...field}
@@ -114,6 +116,7 @@ function ResetPasswordForm(): JSX.Element {
                     <FormLabel>Confirm password</FormLabel>
                     <FormControl>
                       <Input
+                        aria-label='confirmPassword'
                         placeholder='***********'
                         type='password'
                         {...field}
@@ -124,13 +127,13 @@ function ResetPasswordForm(): JSX.Element {
                   </FormItem>
                 )}
               />
-              <Button name='login' type='submit' disabled={isPending}>
+              <Button aria-label='submit' name='login' type='submit' disabled={isPending}>
                 Update password
               </Button>
             </>
           )}
         </>
-        <FormError message={response.error} />
+        <FormError message={hasToken || response.error} />
         <FormSuccess message={response.success} />
       </form>
     </Form>

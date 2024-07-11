@@ -28,7 +28,3 @@ jest.mock('@prisma/client', () => {
   };
   return { PrismaClient: jest.fn(() => mockPrismaClient) };
 });
-
-describe('mock', () => {
-  test('test mock', () => {});
-});
